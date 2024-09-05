@@ -26,12 +26,6 @@ namespace RealEstateApp.Data.DataModels.Models
         Sell
     }
 
-    public class Address
-    {
-        public string City;
-        public string State;
-    }
-
     public class Property
     {
         
@@ -39,7 +33,8 @@ namespace RealEstateApp.Data.DataModels.Models
         public PropertyType PropertyType { get; set; }
         public int NumberOfBedrooms { get; set; }
         public bool Furnishing { get; set; }
-        public Address Address { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
         public int? Floor { get; set; }
         public int? TotalFloors { get; set; }
         public string? SpecialFeatures { get; set; }
@@ -60,7 +55,7 @@ namespace RealEstateApp.Data.DataModels.Models
         }
 
         public Property(int propertyId, PropertyType propertyType, int numberOfBedrooms, bool furnishing, 
-            Address address, int? floor, int? totalFloors, string? specialFeatures, DateTime availibility, 
+            string city, string state, int? floor, int? totalFloors, string? specialFeatures, DateTime availibility, 
             double propertyAge, bool isGate, string? mainEntrance, double totalPropertyArea, double? builtArea, 
             double? carpetArea, CarParkingType? carParking, CommerciaType? commercialUse, string? comments)
         {
@@ -68,7 +63,8 @@ namespace RealEstateApp.Data.DataModels.Models
             PropertyType = propertyType;
             NumberOfBedrooms = numberOfBedrooms;
             Furnishing = furnishing;
-            Address = address;
+            City = city;
+            State = state;
             Floor = floor;
             TotalFloors = totalFloors;
             SpecialFeatures = specialFeatures;
