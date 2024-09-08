@@ -21,6 +21,8 @@ namespace RealEstateApp.Data.DataModels.Entities
         [Required]
         public bool Furnishing { get; set; }
         [Required]
+        public string StreetAddress { get; set; }
+        [Required]
         public string City { get; set; }
         [Required]
         public string State { get; set; }

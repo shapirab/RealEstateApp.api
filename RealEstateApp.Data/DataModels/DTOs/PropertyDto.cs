@@ -12,6 +12,7 @@ namespace RealEstateApp.Data.DataModels.DTOs
         public PropertyType PropertyType { get; set; }
         public int NumberOfBedrooms { get; set; }
         public bool Furnishing { get; set; }
+        public string StreetAddress { get; set; }
         public string City { get; set; }
         public string State { get; set; }
         public int? Floor { get; set; }

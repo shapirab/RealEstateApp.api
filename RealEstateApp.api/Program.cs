@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using RealEstateApp.Data.DbContexts;
+using RealEstateApp.Data.Services.Interfaces;
+using RealEstateApp.Data.Services.SqlImplementations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(
     dbContextOptions => dbContextOptions.UseSqlServer(
         builder.Configuration["ConnectionStrings:RealEstateDb"]));
+
+builder.Services.AddScoped<IPropertyService, PropertyService>();
 
 var app = builder.Build();
 
