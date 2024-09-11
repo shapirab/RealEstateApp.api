@@ -33,5 +33,10 @@ namespace RealEstateApp.Data.DataModels.Models
             UserRole = userRole;
             Token = token;
         }
+
+        public User()
+        {
+            
+        }
     }
 }

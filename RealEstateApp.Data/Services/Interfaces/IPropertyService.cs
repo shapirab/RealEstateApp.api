@@ -12,7 +12,7 @@ namespace RealEstateApp.Data.Services.Interfaces
     {
         Task<PropertyEntity?>GetPropertyByIdAsync(int id);
         Task<IEnumerable<PropertyEntity>> GetAllPropertiesAsync();
-        Task<(IEnumerable<PropertyEntity>, PaginationMetaData)> GetAllDepartmPropertiesAsync
+        Task<(IEnumerable<PropertyEntity>, PaginationMetaData)> GetAllPropertiesAsync
             (string? address, string? city, string? state, string? searchQuery, int pageNumber, int pageSize);
         Task AddPropertyAsync(PropertyEntity property);
         Task DeletePropertyAsync(int id);

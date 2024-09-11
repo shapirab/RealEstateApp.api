@@ -20,7 +20,7 @@ namespace RealEstateApp.Data.Services.SqlImplementations
             this.db = db ?? throw new ArgumentNullException(nameof(db));
         }
        
-        public async Task<(IEnumerable<PropertyEntity>, PaginationMetaData)> GetAllDepartmPropertiesAsync
+        public async Task<(IEnumerable<PropertyEntity>, PaginationMetaData)> GetAllPropertiesAsync
             (string? address, string? city, string? state, string? searchQuery, int pageNumber, int pageSize)
         {
             IQueryable<PropertyEntity> collection = db.Properties as IQueryable<PropertyEntity>;
@@ -82,7 +82,6 @@ namespace RealEstateApp.Data.Services.SqlImplementations
                 db.Properties.Remove(propertyToDelete);
             }
         }
-
 
         public async Task<bool> SaveChangesAsync()
         {
