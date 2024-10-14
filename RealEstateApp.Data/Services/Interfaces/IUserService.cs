@@ -11,11 +11,13 @@ namespace RealEstateApp.Data.Services.Interfaces
     public interface IUserService
     {
         Task<UserEntity?> GetUserByIdAsync(int id);
+        Task<UserEntity?> GetUserByUsernameAndPasswordAsync(string username, string password);
         Task<IEnumerable<UserEntity>> GetAllUsersAsync();
         Task<(IEnumerable<UserEntity>, PaginationMetaData)> GetAllUsersAsync
             (string? firstName, string? lastName, UserRole? userRole, string? searchQuery, int pageNumber, int pageSize);
         Task AddUserAsync(UserEntity user);
         Task DeleteUserAsync(int id);
+        Task<bool> UserExists(string username);
         Task<bool> SaveChangesAsync();
     }
 }

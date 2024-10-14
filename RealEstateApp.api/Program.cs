@@ -1,7 +1,12 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using RealEstateApp.api.Extensions;
 using RealEstateApp.Data.DbContexts;
+using RealEstateApp.Data.Services;
 using RealEstateApp.Data.Services.Interfaces;
 using RealEstateApp.Data.Services.SqlImplementations;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +21,14 @@ builder.Services.AddDbContext<AppDbContext>(
     dbContextOptions => dbContextOptions.UseSqlServer(
         builder.Configuration["ConnectionStrings:RealEstateDb"]));
 
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 builder.Services.AddScoped<IPropertyService, PropertyService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
+
+builder.Services.AddIdentityServices(builder.Configuration);
+builder.Services.AddRoleServices();
 
 var app = builder.Build();
 
@@ -29,6 +41,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
