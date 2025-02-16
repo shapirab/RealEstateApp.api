@@ -9,11 +9,7 @@ namespace RealEstateApp.Data.DataModels.DTOs
 {
     public class UserDto
     {
-        public string Username { get; set; } = null!;
-        public string Password { get; set; } = null!;
-        public string? Firstname { get; set; }
-        public string? Lastname { get; set; }
-        public UserRole? UserRole { get; set; }
+        public string? Username { get; set; }
         public string? Token { get; set; }
     }
 }

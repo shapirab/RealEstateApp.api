@@ -11,7 +11,7 @@ namespace RealEstateApp.Data.Services.Interfaces
     public interface IUserService
     {
         Task<UserEntity?> GetUserByIdAsync(int id);
-        Task<UserEntity?> GetUserByUsernameAndPasswordAsync(string username, string password);
+        Task<UserEntity?> GetUserByUsernameAsync(string username);
         Task<IEnumerable<UserEntity>> GetAllUsersAsync();
         Task<(IEnumerable<UserEntity>, PaginationMetaData)> GetAllUsersAsync
             (string? firstName, string? lastName, UserRole? userRole, string? searchQuery, int pageNumber, int pageSize);

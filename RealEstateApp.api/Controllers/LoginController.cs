@@ -25,15 +25,31 @@ namespace RealEstateApp.api.Controllers
         }
 
         [HttpPost("authenticate")]
-        public async Task<ActionResult<UserDto>> Authenticate(UserDto user)
+        public async Task<ActionResult<UserDto>> Authenticate(LoginDto loggedinUser)
         {
-            UserEntity? userEntity = await userService.GetUserByUsernameAndPasswordAsync(user.Username, user.Password);
+            UserEntity? userEntity = await userService.GetUserByUsernameAsync(loggedinUser.Username);
             if(userEntity == null)
             {
-                return Unauthorized();
+                return Unauthorized("User does not exist");
             }
-            user.Token = tokenService.CreateToken(userEntity);
-            return Ok(user);
+
+            var hmac = new HMACSHA512(userEntity.PasswordSalt);
+            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loggedinUser.Password));
+
+            for(int i = 0; i < computedHash.Length; i++)
+            {
+                if (computedHash[i] != userEntity.PasswordHash[i])
+                {
+                    return Unauthorized("Wrong credentials");
+                }
+            }
+
+            UserDto userToReturn = new UserDto
+            {
+                Username = loggedinUser.Username,
+                Token = tokenService.CreateToken(userEntity)
+            };
+            return Ok(userToReturn);
         }
 
         [HttpPost("register")]
@@ -44,7 +60,12 @@ namespace RealEstateApp.api.Controllers
                 return BadRequest("User is already in the system");
             }
 
+            var hmac = new HMACSHA512();
             UserEntity userEntity = mapper.Map<UserEntity>(registerDto);
+            userEntity.Username = registerDto.Username.ToLower();
+            userEntity.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password));
+            userEntity.PasswordSalt = hmac.Key;
+
             await userService.AddUserAsync(userEntity);
             bool success = await userService.SaveChangesAsync();
 
@@ -53,7 +74,11 @@ namespace RealEstateApp.api.Controllers
                 return StatusCode(500, "Internal server error");
             }
 
-            UserDto userDto = mapper.Map<UserDto>(registerDto);
+            UserDto userDto = new UserDto
+            {
+                Username = userEntity.Username,
+                Token = tokenService.CreateToken(userEntity)
+            };
             return Ok(userDto);
         }
     }

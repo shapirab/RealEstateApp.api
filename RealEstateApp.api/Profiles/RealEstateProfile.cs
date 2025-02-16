@@ -14,6 +14,9 @@ namespace RealEstateApp.api.Profiles
             CreateMap<RegisterDto, UserEntity>();
             CreateMap<UserEntity, RegisterDto>();
 
+            CreateMap<LoginDto, UserEntity>();
+            CreateMap<UserEntity,  LoginDto>();
+
             CreateMap<PropertyDto, PropertyEntity>();
             CreateMap<PropertyEntity, PropertyDto>();
         }

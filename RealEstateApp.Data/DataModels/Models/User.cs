@@ -15,11 +15,11 @@ namespace RealEstateApp.Data.DataModels.Models
     public class User
     {
         public int UserId { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string Firstname { get; set; }
-        public string Lastname { get; set; }
-        public UserRole UserRole { get; set; }
+        public required string Username { get; set; }
+        public required string Password { get; set; }
+        public required string Firstname { get; set; }
+        public required string Lastname { get; set; }
+        public required UserRole UserRole { get; set; }
         public string? Token { get; set; }
 
         public User(int userId, string username, string password, string firstname, string lastname, 

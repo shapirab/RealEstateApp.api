@@ -82,9 +82,9 @@ namespace RealEstateApp.Data.Services.SqlImplementations
             return await db.Users.Where(user => user.UserId == id).FirstOrDefaultAsync();
         }
 
-        public async Task<UserEntity?> GetUserByUsernameAndPasswordAsync(string username, string password)
+        public async Task<UserEntity?> GetUserByUsernameAsync(string username)
         {
-            return await db.Users.Where(user => user.Username == username && user.Password == password).FirstOrDefaultAsync();
+            return await db.Users.Where(user => user.Username == username).FirstOrDefaultAsync();
         }
 
         public async Task<bool> UserExists(string username)
