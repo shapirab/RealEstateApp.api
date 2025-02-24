@@ -9,6 +9,7 @@ namespace RealEstateApp.Data.DataModels.DTOs
     public class LoginDto
     {
         public required string Username { get; set; }
+        //Test password: Pa$$w0rd
         public required string Password { get; set; }
     }
 }
